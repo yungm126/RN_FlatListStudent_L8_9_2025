@@ -1,3 +1,5 @@
+import ListItemSseparator from "@/components/ListItemSeperator";
+import colors from "@/styles/colors";
 import defaultStyles from "@/styles/defaultStyles";
 import React, { useState } from "react";
 import {
@@ -43,11 +45,28 @@ export default function Index() {
         <View style={styles.flatlist}>
           <FlatList
             data={DATA}
+            extraData={selectedId}
             keyExtractor={(item: dataType) => item.id}
+            ItemSeparatorComponent={() =>
+            <ListItemSseparator color={colors.text.light} />}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => selectedList(item)}>
-                  <View style={styles.listText}>
-                    <Text>{item.title}</Text>
+                  <View style={[
+                  styles.flatListRow,
+                  {
+                    backgroundColor: item.id === selectedId
+                      ? colors.primary
+                      : colors.secondary,
+                  }
+                ]}>
+                    <Text style={[styles.titleText,
+                      {
+                        color:
+                          item.id === selectedId
+                            ? colors.text.light
+                            : colors.text.dark,
+                      }
+                    ]}>{item.title}</Text>
                   </View>
               </TouchableOpacity>
             )
@@ -68,6 +87,11 @@ const styles = StyleSheet.create({
     width: 300,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
+  },
+  flatListRow:{
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 10,
   },
   titleText: {
     fontSize: 24,
