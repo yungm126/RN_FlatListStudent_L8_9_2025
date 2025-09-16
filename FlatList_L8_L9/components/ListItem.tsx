@@ -17,7 +17,7 @@ type propsType = {
 
 const ListItem:React.FC<propsType> = ({item, isSelected, onPress}) => {
   return (
-    <TouchableOpacity onPress={() => selectedList(item)}>
+    <TouchableOpacity onPress={() => onPress(item)}>
                   <View style={[
                   styles.flatListRow,
                   {
@@ -28,8 +28,7 @@ const ListItem:React.FC<propsType> = ({item, isSelected, onPress}) => {
                 ]}>
                     <Text style={[styles.titleText,
                       {
-                        color:
-                          item.id === selectedId
+                        color: isSelected                       
                             ? colors.text.light
                             : colors.text.dark,
                       }
@@ -50,6 +49,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginTop: 5,
+  },
+  titleText: {
+    fontSize: 24,
+    padding: 10,
   },
   text: {
     color: colors.text.dark,
